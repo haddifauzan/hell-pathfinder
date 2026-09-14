@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infernal Pathfinding Game</title>
+  <meta name="description" content="Infernal 2D AI Pathfinding Game with real-time chase, live debug overlay, and hell-themed procedural graphics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="/src/infernal.css" />
+</head>
+<body>
+
+  <!-- Top Left Menu Button -->
+  <button id="burger-btn" class="burger-btn" aria-label="Open Game Menu" title="Open Settings Menu">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+  <!-- Centered Settings Game Modal (Popup in Middle) -->
+  <div id="settings-modal" class="modal-backdrop hide">
+    <div class="modal-card settings-card">
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-fire-flame-curved"></i> Infernal Settings</h2>
+        <button id="close-settings-btn" class="close-btn" aria-label="Close Settings">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label for="algorithm-select">AI Pathfinding Algorithm:</label>
+        <select id="algorithm-select">
+          <option value="astar" selected>A* Search (Manhattan Heuristic)</option>
+          <option value="ucs">Uniform‑Cost Search (UCS)</option>
+        </select>
+
+        <div class="modal-btn-group">
+          <button id="random-btn" class="menu-action-btn"><i class="fa-solid fa-dice"></i> New Random Map</button>
+          <button id="resume-btn" class="menu-action-btn secondary-btn"><i class="fa-solid fa-play"></i> Resume Game</button>
+        </div>
+
+        <div class="controls-guide">
+          <h4><i class="fa-solid fa-gamepad"></i> Gameplay Controls:</h4>
+          <p>• <strong>WASD / Arrow Keys</strong>: Move & Evade</p>
+          <p>• <strong>P / Spacebar</strong>: Pause / Resume Game</p>
+          <p>• <strong>AI Demon</strong>: Continuously hunts Player</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Over Modal (Center Screen) -->
+  <div id="game-over-modal" class="modal-backdrop hide">
+    <div class="modal-card">
+      <div class="modal-skull"><i class="fa-solid fa-skull"></i></div>
+      <h2>YOU WERE CAUGHT!</h2>
+      <p>The Infernal Demon tracked and devoured your soul.</p>
+      <div class="modal-btn-group">
+        <button id="try-again-btn" class="try-again-btn"><i class="fa-solid fa-rotate-right"></i> Try Again</button>
+        <button id="game-over-menu-btn" class="modal-secondary-btn"><i class="fa-solid fa-gear"></i> Game Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Center Status Banner -->
+  <div id="game-status" class="status-banner">
+    <span id="status-text"><i class="fa-solid fa-gamepad"></i> RUN! Evade the Demon with WASD or Arrow Keys</span>
+  </div>
+
+  <!-- Centered Game Container for Phaser Canvas -->
+  <main id="game-viewport">
+    <div id="game-container"></div>
+  </main>
+
+  <!-- Floating Right-Top Box: Debug Metrics + Legend -->
+  <aside id="floating-panel">
+    <!-- Box 1: Debug Metrics Overlay -->
+    <div class="floating-box debug-box">
+      <div class="box-header">
+        <h3><i class="fa-solid fa-chart-column"></i> Live Debug Metrics</h3>
+        <span id="active-algo-badge" class="algo-badge">A*</span>
+      </div>
+      <div id="metrics-panel">
+        <p>Total Nodes Expanded: <span id="nodes-expanded">0</span></p>
+        <p>Path Cost: <span id="path-cost">0</span></p>
+        <p>Execution Time: <span id="exec-time">0</span> ms</p>
+      </div>
+    </div>
+
+    <!-- Box 2: Legend Directly Below Debug Overlay -->
+    <div class="floating-box legend-box">
+      <h4><i class="fa-solid fa-book-open"></i> Legend (PRD 4.2)</h4>
+      <div class="legend-grid">
+        <div class="legend-item"><span class="box start"></span> Player Soul</div>
+        <div class="legend-item"><span class="box goal"></span> NPC Demon</div>
+        <div class="legend-item"><span class="box lava"></span> Lava Pit</div>
+        <div class="legend-item"><span class="box obsidian"></span> Dinding Obsidian</div>
+        <div class="legend-item"><span class="box crystal"></span> Kristal Magma</div>
+        <div class="legend-item"><span class="box explored"></span> Frontier Node</div>
+        <div class="legend-item"><span class="box path"></span> Fiery Gold Path</div>
+      </div>
+    </div>
+  </aside>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
