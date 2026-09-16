@@ -2,24 +2,13 @@
 
 > **Tugas Besar Mata Kuliah Kecerdasan Buatan (Artificial Intelligence)**  
 > **Program Studi Ilmu Komputer — Semester 3**  
+>  
+> **Kelompok 10**  
+> - (2506827) Faridchi Trianda Safaraz  
+> - (2507609) Haddi Fauzan Nurrosid  
+> - (2508734) Farell Arrefa Zafhir  
+>  
 > Implementasi, Visualisasi, dan Perbandingan Algoritma Pencarian Jalur 2D (*Pathfinding*) Berbasis Web: **Uniform-Cost Search (UCS)** vs **A* Search (Manhattan Heuristic)**.
-
----
-
-## Daftar Isi
-1. [Tentang Proyek](#tentang-proyek)
-2. [Konsep & Mekanik Permainan](#konsep--mekanik-permainan)
-3. [Algoritma Pencarian Jalur](#algoritma-pencarian-jalur)
-   - [Uniform-Cost Search (UCS)](#1-uniform-cost-search-ucs--dijkstra)
-   - [A* Search (Informed Search)](#2-a-search-informed-search)
-   - [Struktur Data Min-Heap Priority Queue](#3-struktur-data-min-heap-priority-queue)
-4. [Analisis & Perbandingan: UCS vs A*](#analisis--perbandingan-ucs-vs-a)
-5. [Fitur-Fitur Utama](#fitur-fitur-utama)
-6. [Spesifikasi Visual & Desain Prosedural](#spesifikasi-visual--desain-prosedural)
-7. [Struktur Direktori & Arsitektur Kode](#struktur-direktori--arsitektur-kode)
-8. [Panduan Instalasi & Menjalankan](#panduan-instalasi--menjalankan)
-9. [Kontrol Permainan](#kontrol-permainan)
-10. [Roadmap Pengembangan: Tahap 2 (Adversarial Search)](#roadmap-pengembangan-tahap-2-adversarial-search)
 
 ---
 
