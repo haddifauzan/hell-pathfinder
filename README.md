@@ -181,13 +181,3 @@ hell-pathfinder/
 | **Button "New Random Map"** | Mengacak ulang susunan labirin rintangan dan lokasi karakter |
 | **Button "Try Again"** | Muncul pada modal saat tertangkap untuk memulai ronde baru di map acak baru |
 
----
-
-## Roadmap Pengembangan: Tahap 2 (Adversarial Search)
-
-Berdasarkan silabus perkuliahan dan konfirmasi dosen pengampu (*Pak Yudi*), pengembangan tahap berikutnya dari proyek ini akan mengintegrasikan topik **Adversarial Search (Pencarian Berlawanan)**:
-
-- **Konsep Pertarungan (Battle System)**: Integrasi mekanik Health Point (HP), perangkap, atau kemampuan serang/bertahan antar entitas.
-- **Algoritma Minimax & Alpha-Beta Pruning**: NPC tidak hanya mengejar titik koordinat statis, namun memperhitungkan langkah terbaik pemain $N$-langkah ke depan untuk memojokkan pemain (*decision tree*).
-- **Arsitektur Modular**: Berkat struktur kode yang modular pada `src/core/`, modul baru seperti `Minimax.js` atau `AlphaBeta.js` dapat langsung dihubungkan ke `PathfindingScene.js` tanpa merombak sistem grafis yang telah dibangun.
-
