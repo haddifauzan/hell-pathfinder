@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Report assets
+laporan_assets/
+
+# Working planning docs (only README.md tracked)
+PLAN.md
+PROMPT_ASSETS.md
