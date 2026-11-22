@@ -1,183 +1,257 @@
-# Infernal Pathfinding Game — AI Pathfinding & Pursuit Simulator
-
+# 🔥 INFERNAL AFFAIRS: Hybrid AI Game Architecture
 > **Tugas Besar Mata Kuliah Kecerdasan Buatan (Artificial Intelligence)**  
 > **Program Studi Ilmu Komputer — Semester 3**  
+> **Kelompok 10:**  
+> - **(2506827) Faridchi Trianda Safaraz**  
+> - **(2507609) Haddi Fauzan Nurrosid**  
+> - **(2508734) Farell Arrefa Zafhir**  
 >  
-> **Kelompok 10**  
-> - (2506827) Faridchi Trianda Safaraz  
-> - (2507609) Haddi Fauzan Nurrosid  
-> - (2508734) Farell Arrefa Zafhir  
->  
-> Implementasi, Visualisasi, dan Perbandingan Algoritma Pencarian Jalur 2D (*Pathfinding*) Berbasis Web: **Uniform-Cost Search (UCS)** vs **A* Search (Manhattan Heuristic)**.
+> **Tahap 4 (Expanded):** *Logic & Knowledge Representation (Modul 07), Automated Planning STRIPS (Modul 08), & Decisions Under Uncertainty MDP (Modul 09)*  
+> **Engine:** Godot Engine 4.3+ / 4.7+ (GDScript)
 
 ---
 
-## Tentang Proyek
+## 📌 1. Deskripsi Umum Proyek
 
-**Infernal Pathfinding Game** adalah aplikasi game web interaktif dan simulator visualisasi kecerdasan buatan (*AI Pathfinding*) bertema **Inferno / Neraka**. Proyek ini dikembangkan untuk mendemonstrasikan secara nyata bagaimana agen AI (NPC Demon) memperhitungkan dan melacak jalur terpendek menuju target dinamis (Player / Lost Soul) secara *real-time* di lingkungan labirin berapi dengan berbagai rintangan.
+**Infernal Affairs** adalah game petualangan taktis infernal berbasis 2D yang mengintegrasikan seluruh spektrum kurikulum kecerdasan buatan (*Artificial Intelligence*) ke dalam satu ekosistem terpadu. Proyek ini memadukan pilar utama algoritma AI:
 
-Aplikasi ini menyandingkan dua algoritma pencarian fundamental dalam ranah *Artificial Intelligence*:
-1. **Uniform-Cost Search (UCS)** — Algoritma pencarian tanpa informasi (*Uninformed Search*).
-2. **A\* Search** — Algoritma pencarian berinformasi (*Informed Search*) dengan fungsi heuristik Manhattan.
+1. **Tahap 1 (Pathfinding & Pursuit):** Pelacakan rute terpendek dinamis (*A\* Search* dengan Manhattan Heuristic vs *Uniform-Cost Search*).
+2. **Tahap 2 (Adversarial Search):** Sistem pertarungan taktis berbasis giliran 1-on-1 (*Turn-Based Duel*) yang diotaki oleh algoritma *Minimax* dengan *Alpha-Beta Pruning* dan multi-fungsi evaluasi doktrin.
+3. **Tahap 3 - Modul 5 (Constraint Satisfaction Problem - CSP):** Mesin penata variabel dunia global (*World Procedural Rules*) yang menugaskan identitas, segel, senjata, dan doktrin AI musuh bebas konflik menggunakan *Backtracking Search*, *MRV*, *LCV*, dan *AC-3 Arc Consistency*.
+4. **Tahap 3 - Modul 4 (Local Search Dynamic Balancer):** Sistem penyeimbang tingkat kesulitan adaptif secara *real-time* sebelum memasuki pertarungan menggunakan *Simulated Annealing (SA)* dan *Hill Climbing (HC)* dengan kompensasi daya pasif terbalik.
+5. **Tahap 4 - Modul 07 (Knowledge-Based Logic & Inference Engine):** Mengacu pada `07_Logic & Representasi Pengetahuan.pdf`. Penalaran logis dengan observasi parsial (*Partial Observability*). Status segel gerbang (*Gate Seal*) disembunyikan (*Hidden [?]*) dan diungkap melalui pencapaian level (*Level 2 Trigger*), monolog kebangkitan penjaga (*Guard Awakening Event*), dan deduksi *Forward Chaining* berbasis Horn Clauses saat pemain menyabotase minion pembawa elemen.
+6. **Tahap 4 - Modul 08 (Automated Planning - STRIPS/PDDL):** Mengacu pada `08_Automated Planning.pdf`. Minion bertransformasi menjadi *Autonomous Planning Agents* yang merancang sekuens aksi otonom: `MOVE(Altar) -> HARVEST(Shard) -> MOVE(Dest) -> DELIVER(Dest)` secara berkala dari 3 Altar Wilderness menuju Guard dan Boss, mengalirkan penguatan pasif berjenjang (Tier 0 s.d Tier 2).
+7. **Tahap 4 - Modul 09 (Decisions Under Uncertainty & MDP):** Mengacu pada `09_Decision under uncertainity.pdf`. Lingkungan stokastik pada rute penyeberangan sungai lahar (*Hazard Shortcut*). Agen minion dipandu kebijakan optimal $\pi^*(s)$ berbasis *Maximum Expected Utility (MEU)* dan *Bellman Equation*, dengan pembaruan keyakinan dinamis via *Bayesian Updating* ($P(\text{Hazard}\mid W) = 0.50$) saat menerima observasi asap magma ($W=1$) yang memicu *Policy Shift* otomatis dari jalan pintas ke jalan raya benteng yang aman.
 
-Pemain dapat memantau secara langsung perbedaan kinerja kedua algoritma melalui panel metrik yang mencakup **jumlah simpul dieksplorasi (*Nodes Expanded*)**, **bobot jalur (*Path Cost*)**, dan **waktu eksekusi (*Execution Time*)**.
-
----
-
-## Konsep & Mekanik Permainan
-
-- **Role Pemain (Lost Soul)**: Jiwa yang terjebak di neraka dan harus bermanuver menghindari kejaran iblis menggunakan kendali keyboard.
-- **Role Agen AI (Hell Demon)**: Iblis pemburu yang secara kontinu menghitung jalur optimal untuk mendekati dan menangkap Lost Soul.
-- **Dynamic Live Pursuit**: Setiap kali Player berpindah petak, NPC Demon langsung memperbarui rute terpendek menggunakan algoritma yang sedang aktif.
-- **Jarak Spawn Aman (*Safe Distance*)**: Posisi awal Player dan Demon diatur secara acak dengan jarak Manhattan minimal **14 petak**, memastikan pemain memiliki ruang awal yang adil untuk bermanuver.
-- **Game Over & New Random Map**: Ketika Demon berhasil menyentuh Player, permainan seketika terhenti (*freeze*) dan memunculkan jendela modal **YOU WERE CAUGHT!**. Menekan tombol **Try Again** akan langsung mengacak labirin rintangan baru serta menata ulang posisi karakter.
+> 📖 **Dokumen Acuan & Hasil Tahap 4:**
+> - [RINGKASAN_HASIL_TAHAP_4.md](file:///d:/Tugas/KULIAH/SEMESTER%203/Kecerdasan%20Buatan/Tugas/tubes/infernal-affairs/RINGKASAN_HASIL_TAHAP_4.md): Rangkuman teknis komprehensif integrasi Modul 07, 08, & 09, hitungan manual Bellman, Bayesian, perbaikan bug, dan katalog aset baru.
+> - [TAHAP_4_LOGIC_AND_PLANNING.md](file:///d:/Tugas/KULIAH/SEMESTER%203/Kecerdasan%20Buatan/Tugas/tubes/infernal-affairs/TAHAP_4_LOGIC_AND_PLANNING.md): Spesifikasi formal PDDL domain & problem supply chain minion.
+> - [PLAN_TAHAP_4.md](file:///d:/Tugas/KULIAH/SEMESTER%203/Kecerdasan%20Buatan/Tugas/tubes/infernal-affairs/PLAN_TAHAP_4.md): Desain awal transisi stokastik dan Bellman Value Iteration.
 
 ---
 
-## Algoritma Pencarian Jalur
+## 🏛️ 2. Arsitektur Hibrida Integrasi Sistem
 
-### 1. Uniform-Cost Search (UCS / Dijkstra)
-- **Kategori**: *Uninformed Search* / *Brute-force Informed by Path Cost*.
-- **Fungsi Evaluasi**: 
-  $$f(n) = g(n)$$
-  Di mana $g(n)$ adalah akumulasi biaya aktual dari titik awal ke simpul $n$.
-- **Karakteristik**:
-  - Mengeksplorasi ruang pencarian secara melingkar (*radial expansion*) ke segala arah tanpa memiliki pemahaman arah target berada.
-  - Menjamin solusi optimal (lintasan terpendek), namun memerlukan eksplorasi simpul (*nodes expanded*) dalam jumlah yang jauh lebih banyak.
+Sistem menggabungkan penalaran kendala global kualitatif dengan optimasi numerik dinamis lokal:
 
-### 2. A* Search (Informed Search)
-- **Kategori**: *Heuristic Search / Best-First Search*.
-- **Fungsi Evaluasi**:
-  $$f(n) = g(n) + h(n)$$
-  Di mana $g(n)$ adalah biaya aktual dari awal ke simpul $n$, dan $h(n)$ adalah estimasi biaya dari simpul $n$ ke target.
-- **Fungsi Heuristik (Manhattan Distance)**:
-  $$h(n) = |x_n - x_{target}| + |y_n - y_{target}|$$
-  Karena perpindahan karakter dibatasi pada 4 arah ortogonal (atas, bawah, kiri, kanan) dengan biaya langkah seragam, heuristik Manhattan bersifat *admissible* ($h(n) \le h^*(n)$) dan *consistent*, sehingga menjamin rute yang dihasilkan selalu optimal dengan jumlah simpul yang dieksplorasi jauh lebih sedikit.
+```
+[ Awal Sesi Permainan ]
+        │
+        ▼
+┌────────────────────────────────────────┐
+│  CSPSolver.solve() (Modul 5)          │
+│  Backtracking + MRV + LCV + AC-3       │
+│  - Guard Archetype, Gate Seal, Weapon  │
+│  - Doktrin AI Minimax & Syarat Gerbang │
+└───────────────────┬────────────────────┘
+                    │  (Modifier Aturan Kualitatif)
+                    │
+[ Encounter Terjadi ]│
+        │           │
+        ▼           │
+┌───────────────────┴────────────────────┐      ┌────────────────────────────────────────┐
+│  PreBattleBriefingModal                │      │  Pemain Menantang Musuh                │
+│  Intel musuh, elemen, & tips counter   │      │  Baca status aktual -> Hitung P_Player │
+└───────────────────┬────────────────────┘      └───────────────────┬────────────────────┘
+                    │                                               │
+                    │               ┌───────────────────────────────┘
+                    ▼               ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│  LocalSearchBalancer (Modul 4)                                                         │
+│  Simulated Annealing / Hill Climbing                                                   │
+│  Fungsi Objektif: f(S) = - | Power_NPC - (r × Power_Player) |                         │
+│  Output: Parameter Numerik Optimal S* (HP, Atk, Heavy, Def, Potion, Depth)             │
+└───────────────────────────────────┬────────────────────────────────────────────────────┘
+                                    │  (Parameter Kuantitatif S*)
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│  Konfigurasi Pertempuran (Battle Configuration)                                        │
+│  Sintesis: Parameter Kuantitatif S* + Modifier Aturan Solusi CSP                       │
+└───────────────────────────────────┬────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│  BattleManager + MinimaxSolver (Modul 2)                                               │
+│  Arena duel turn-based dengan pohon pencarian Minimax / Alpha-Beta Pruning            │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
-### 3. Struktur Data Min-Heap Priority Queue
-Kedua algoritma memanfaatkan struktur data **Min-Heap Binary Priority Queue** (`src/utils/PriorityQueue.js`) untuk menyimpan *frontier*:
-- Operasi penyisipan simpul (`enqueue`): $O(\log V)$
-- Operasi pengambilan simpul prioritas terendah (`dequeue`): $O(\log V)$
-- Menghasilkan kompleksitas waktu total yang efisien: $O((V + E) \log V)$
-
----
-
-## Analisis & Perbandingan: UCS vs A*
-
-| Kriteria Pembanding | Uniform-Cost Search (UCS) | A* Search (Manhattan Heuristic) |
-|---|---|---|
-| **Jenis Algoritma** | *Uninformed Search* | *Informed Search* |
-| **Fungsi Pemandu** | Hanya biaya lintasan $g(n)$ | Biaya lintasan + Estimasi jarak $g(n) + h(n)$ |
-| **Arah Eksplorasi** | Melingkar merata ke segala arah (*radial*) | Terfokus mengarah ke posisi Player (*directional*) |
-| **Nodes Expanded** | **Sangat Banyak** (boros memori dan komputasi) | **Sangat Sedikit** (fokus dan efisien) |
-| **Optimalitas Solusi** | **Optimal** (pasti rute terpendek) | **Optimal** (karena heuristik *admissible*) |
-| **Kompleksitas Memori** | Tinggi | Jauh lebih hemat |
-| **Performa Real-Time** | Terasa berat jika grid bertambah luas | Sangat ringan untuk pengejaran live game |
-
----
-
-## Fitur-Fitur Utama
-
-1. **Arena Permainan Terpusat (*Centered Canvas Layout*)**:
-   - Canvas berukuran tetap $800 \times 576\text{ px}$ ($25 \times 18$ petak grid @ $32\text{ px}$) berada tepat di tengah halaman (*viewport centering*) tanpa distorsi rasio aspek.
-2. **Pembangkitan Peta Acak (*Procedural Random Maze*)**:
-   - Peta diisi kombinasi dinding obsidian, kolam lava, dan kristal magma dengan pola persebaran alami.
-   - Peta otomatis dibuat ulang secara dinamis saat menekan tombol *New Random Map* atau *Try Again*.
-3. **Live Debug Overlay & Legend Terapung**:
-   - Panel HUD transparan di pojok kanan atas menampilkan metrik performa algoritma secara *real-time*.
-   - Dilengkapi panduan legenda visual elemen map, karakter, dan visualisasi jalur.
-4. **Menu Pengaturan Terpusat (*Centered Game Settings Modal*)**:
-   - Menu berbentuk modal popup di tengah layar (seperti game konsol/PC) yang dapat diakses kapan saja via tombol Menu (kiri atas) atau melalui tombol *Game Settings* saat tertangkap.
-   - Fitur **Auto-Pause**: Permainan otomatis dijeda ketika menu pengaturan dibuka agar pemain tidak terdesak.
-5. **Kontrol Pause / Resume Mandiri**:
-   - Dukungan hotkey keyboard (`P` atau `Spacebar`) untuk jeda cepat.
-6. **Modal Game Over & Menu Terintegrasi**:
-   - Popup tengah saat tertangkap (*YOU WERE CAUGHT!*), menyediakan opsi langsung untuk *Try Again* atau membuka *Game Settings* guna mengganti algoritma/peta.
+> **Prinsip Desain Kunci:** Luaran CSP tidak menjadi masukan fungsi objektif *Local Search*; keduanya berjalan secara independen dan bertemu pada tahap **Konfigurasi Pertempuran Final**.
 
 ---
 
-## Spesifikasi Visual & Desain Prosedural
+## 🧩 3. Modul 5: Constraint Satisfaction Problem (CSP)
 
-Sesuai dengan dokumen spesifikasi desain (*PRD Section 4.2*), seluruh elemen visual dirender secara prosedural menggunakan Phaser Graphics & CSS Glow tanpa memerlukan file gambar eksternal yang lambat dimuat:
+Modul ini bertanggung jawab mengatur konsistensi tematik dunia permainan saat sesi baru dimulai.
 
-| Objek | Visual Prosedural | Representasi Teknis |
-|---|---|---|
-| **Tile Walkable** | Quadrant abu-gelap (`#1e1e24`) dengan garis retakan lava tipis (`#ff5500`) | Petak jalan normal (Dapat dilalui) |
-| **Tile Lava Pit** | Petak merah-oranye membara (`#ff4d00`) + lingkaran inti pendar berdenyut (`#ffe600`) | Rintangan cair / jurang api (Tidak dapat dilalui) |
-| **Tile Obsidian Wall** | Kotak hitam pekat (`#0d0d11`) dengan double border merah crimson tegas (`#ff0054`) | Dinding batu vulkanik (Rintangan keras) |
-| **Tile Kristal Magma** | Bentuk belah ketupat/diamond kuning-oranye (`#ff9f1c`) dengan pendaran neon | Kristal panas berduri (Rintangan statis) |
-| **Lost Soul (Player)** | Orb bulat cyan / neon soul-blue (`#00f5d4`) dengan aura pendaran lembut | Karakter utama yang digerakkan pemain |
-| **Hell Demon (NPC)** | Orb bulat merah crimson membara (`#ff0054`) dengan ekspresi pemburu | Musuh pencari jalur otomatis |
-| **Jalur Optimal (Path)** | Titik-titik garis emas berkilau (*Radiant Fiery Gold* `#ffbe0b`) | Lintasan terpendek hasil kalkulasi algoritma |
-| **Frontier (Visited)** | Kotak translucent soul-yellow (`rgba(255, 204, 0, 0.25)`) | Petak yang sempat diperiksa oleh algoritma |
+### 3.1 Variabel ($X$) dan Domain ($D$)
+| Variabel | Domain ($D$) | Deskripsi |
+| :--- | :--- | :--- |
+| `guard_type` | {Infernal Knight, Obsidian Gargoyle, Abyssal Shaman} | Tipe arketipe penjaga gerbang |
+| `gate_seal` | {Seal of Flame, Seal of Shadow, Seal of Blood} | Beban elemen segel gerbang utama |
+| `boss_weapon` | {Flame Scythe, Cursed Blade, Blood Trident} | Senjata modular Demon Lord |
+| `guard_strategy` | {Aggressive, Defensive, Tactical} | Doktrin AI Minimax untuk Penjaga |
+| `boss_strategy` | {Aggressive, Defensive, Tactical} | Doktrin AI Minimax untuk Demon Lord |
+| `gate_req` | {Level 2, Level 3} | Syarat level minimum membuka gerbang |
+| `castle_potions` | {(G:1, B:1), (G:2, B:0), (G:0, B:2)} | Distribusi stok ramuan pemulihan |
+
+### 3.2 Relasi Kendala Biner ($C_1 - C_5$) & Global
+1. **$C_1$ (Afinitas Elemen):** `guard_type` selaras dengan elemen `gate_seal` (Knight $\leftrightarrow$ Flame, Gargoyle $\leftrightarrow$ Blood, Shaman $\leftrightarrow$ Shadow).
+2. **$C_2$ (Kesesuaian Doktrin):** `guard_type` cocok dengan `guard_strategy` (Knight $\leftrightarrow$ Aggressive, Gargoyle $\leftrightarrow$ Defensive, Shaman $\leftrightarrow$ Tactical).
+3. **$C_3$ (Resonansi Elemen):** `gate_seal` memiliki resonansi dengan `boss_weapon`.
+4. **$C_4$ (Diversitas Doktrin):** `guard_strategy` $\neq$ `boss_strategy` (memastikan dinamika taktik bervariasi).
+5. **$C_5$ (Anti-Monopoli Elemen):** Elemen `boss_weapon` tidak boleh memonopoli elemen `guard_type`.
+6. **$C_{\text{global}}$ (Konservasi Potion):** Total alokasi ramuan kastil berjumlah tetap ($\sum = 2$).
+
+### 3.3 Heuristik & Inferensi Pencarian
+- **Minimum Remaining Values (MRV):** Memilih variabel dengan sisa domain terkecil untuk dieksplorasi lebih dahulu (*Fail-First Principle*).
+- **Least Constraining Value (LCV):** Memilih nilai yang paling sedikit membatasi pilihan variabel tetangga (*Succeed-First Principle*).
+- **AC-3 (Arc Consistency):** Memangkas nilai domain yang tidak konsisten secara propagatif sebelum percabangan pohon pencarian.
 
 ---
 
-## Struktur Direktori & Arsitektur Kode
+## ⚖️ 4. Modul 4: Local Search Dynamic Balancer
+
+Modul ini memastikan pertarungan tetap adil dan menantang secara dinamis (*Adaptive Difficulty*) berdasarkan perkembangan nyata pemain.
+
+### 4.1 Formulasi State Space ($S$)
+State parameter musuh direpresentasikan oleh tuple:
+$$S = \langle HP, Atk, HeavyAtk, Def, Potions, MinimaxDepth \rangle$$
+
+### 4.2 Fungsi Kekuatan & Fungsi Objektif ($f(S)$)
+Kekuatan entitas dihitung melalui formula daya agregat:
+$$Power = HP + 2.2 \cdot Atk + 1.2 \cdot HeavyAtk + 3.0 \cdot Def + 0.7 \cdot PotHeal + 15 \cdot Depth$$
+
+Fungsi objektif yang dimaksimalkan menuju $0$:
+$$f(S) = -|Power_{\text{NPC}} - (r \times Power_{\text{Player}})|$$
+- **Rasio Penjaga ($r = 1.05$):** Musuh dirancang seimbang dengan sedikit keunggulan taktis.
+- **Rasio Bos Neraka ($r = 1.30$):** Pertarungan klimaks yang menuntut persiapan maksimal pemain.
+
+### 4.3 Algoritma Optimasi
+1. **Simulated Annealing (SA):**
+   - Menggunakan jadwal pendinginan geometrik: $T_{k+1} = T_k \times \alpha$ dengan $\alpha = 0.93$.
+   - Menerima langkah memburuk (*Downhill Moves*) dengan probabilitas Boltzmann:
+     $$P = \exp\left(\frac{\Delta E}{T}\right)$$
+   - Efektif meloloskan diri dari jebakan optimum lokal (*local optima escape*).
+2. **Hill Climbing (HC):**
+   - Pendekatan serakah (*Greedy Ascent*) yang hanya menerima tetangga dengan $\Delta E \ge 0$.
+   - Menunjukkan konvergensi cepat namun rentan mengalami stagnasi pada *plateau* atau *local maximum*.
+
+---
+
+## ⚔️ 5. Turn-Based Adversarial Combat (Minimax Engine)
+
+- **Minimax Search dengan Alpha-Beta Pruning:** Mengevaluasi pohon pencarian aksi hingga kedalaman *lookahead* $d \in [1, 3]$ dengan pemangkasan cabang tak berguna (*Pruning Ratio* mencapai 60-80%).
+- **Fungsi Evaluasi Multi-Doktrin:**
+  - **Aggressive:** Memprioritaskan selisih HP lawan dan penalti pertahanan pasif.
+  - **Defensive:** Menghargai pemulihan HP, mitigasi damage, dan stok Potion.
+  - **Tactical:** Mempertimbangkan momentum tempo, prediksi *cooldown*, dan counter serangan lawan.
+- **Efek Pasif Segel & Senjata:**
+  - *Medan Panas (Seal of Flame):* DoT api 3 HP per ronde.
+  - *Hisap Jiwa (Seal of Shadow):* Lifesteal 15% damage.
+  - *Kulit Iblis (Seal of Blood):* Reduksi flat -4 damage fisik.
+  - *Armor Pierce (Blood Trident):* Menembus status Defend hingga 80%.
+  - *Infernal Burn (Flame Scythe):* Status Burn 5 HP/ronde selama 2 ronde.
+
+---
+
+## 🎨 6. Aset Visual Baru & User Interface (Tahap 3)
+
+1. **Katalog Karakter & Penjaga:**
+   - *Lesser Imp* (Minion Overworld)
+   - *Infernal Knight* (Guard - Api)
+   - *Obsidian Gargoyle* (Guard - Darah/Bumi)
+   - *Abyssal Shaman* (Guard - Bayangan/Void)
+2. **Spritesheets Senjata & Segel:**
+   - Senjata Bos: *Flame Scythe*, *Cursed Blade*, *Blood Trident*.
+   - Segel Gerbang: *Seal of Flame*, *Seal of Shadow*, *Seal of Blood*.
+   - Matriks Grid 9-Avatar Combat (Kombinasi Arketipe $\times$ Elemen Segel).
+3. **Efek Partikel Animatif (Attack VFX - 4 Frames):**
+   - *Flame Slash* (Tebasan pedang api).
+   - *Void Orb* (Ledakan energi gelap).
+   - *Earth Bash* (Hantaman seismik batu lava).
+4. **Komponen UI Interaktif:**
+   - *PreBattleBriefingModal:* Panel intel pra-battle lengkap dengan identitas lawan dan rekomendasi counter taktis.
+   - *PreBattleLoadingOverlay:* Visualizer real-time proses pencarian lokal (SA vs HC), live step logs, dan kurva konvergensi.
+   - *Overhead Status Badges:* Label melayang di atas kepala musuh overworld yang menampilkan status arketipe, segel, dan senjata.
+   - *Debug HUD Panel (F3):* Inspektur runtime CSP, kontrol teleportasi, dan pengujian duel instan.
+
+---
+
+## 📁 7. Struktur Direktori Proyek
 
 ```text
-hell-pathfinder/
-├── index.html                 # Struktur DOM, UI HUD, Drawer, & Modal
-├── package.json               # Konfigurasi dependensi (Vite & Phaser 3)
-├── vite.config.js             # Konfigurasi bundler Vite
-├── README.md                  # Dokumentasi komprehensif modul ini
-└── src/
-    ├── main.js                # Entry point & inisialisasi Phaser Game Config
-    ├── infernal.css           # Styling tema inferno gelap, glassmorphism, & modal
-    ├── core/                  # Engine inti AI & Grid (Decoupled dari renderer)
-    │   ├── GridManager.js     # Representasi matriks 2D, tipe petak, & validasi gerak
-    │   ├── Pathfinder.js      # Kelas dasar abstrak algoritma pathfinding
-    │   ├── UCS.js             # Logika Uniform-Cost Search murni
-    │   └── AStar.js           # Logika A* Search dengan Manhattan Heuristic
-    ├── scenes/
-    │   └── PathfindingScene.js# Scene Phaser: loop update, render grafik, & state game
-    └── utils/
-        ├── PriorityQueue.js   # Min-Heap Priority Queue teroptimasi
-        └── TextureFactory.js  # Utilitas pembangkit grafis prosedural
+infernal-affairs/
+├── assets/
+│   ├── audio/                     # SFX serangan, klik UI, dan balancer tick
+│   └── sprites/
+│       ├── characters/            # Sprite & portrait Player, Demon, Guard, Minion
+│       ├── effects/               # Spritesheet VFX serangan (Flame Slash, Void Orb, Earth Bash)
+│       └── map/obstacles/         # Rintangan peta & spritesheet segel gerbang
+├── scenes/
+│   ├── Main.tscn                  # Scene utama overworld, grid, dan HUD
+│   ├── Player.tscn                # Entitas pemain
+│   └── Demon.tscn                 # Entitas bos iblis
+├── scripts/
+│   ├── Main.gd                    # Orkestrasi alur game, encounter, dan state transition
+│   ├── core/
+│   │   ├── PlanSolver.gd          # Modul 7: Automated Planning STRIPS (State-Space Forward Search)
+│   │   ├── LogicEngine.gd         # Modul 6: Knowledge-Based Logic & Forward Chaining Inference
+│   │   ├── CSPSolver.gd           # Modul 5: Mesin CSP (MRV, LCV, AC-3)
+│   │   ├── LocalSearchBalancer.gd # Modul 4: Mesin Local Search (SA vs HC dengan kompensasi pasif)
+│   │   ├── GameState.gd           # State global pemain & progres permainan
+│   │   ├── GridManager.gd         # Navigasi grid & kalkulasi peta
+│   │   └── MinHeap.gd             # Priority Queue untuk pencarian jalur
+│   ├── entities/
+│   │   ├── ResourceNode.gd        # Entitas Altar Elemen Wilderness (Flame, Shadow, Blood)
+│   │   ├── Minion.gd              # Logika Carrier Minion & eksekusi Automated Planning
+│   │   ├── Demon.gd               # Logika NPC Bos overworld & modular weapon
+│   │   └── Guard.gd               # Logika Penjaga gerbang, Awakening Event & Tier Pasif
+│   ├── battle/
+│   │   ├── BattleHUD.gd           # Antarmuka pertarungan turn-based & animasi VFX
+│   │   ├── BattleManager.gd       # Wasit giliran duel & sinkronisasi aksi
+│   │   ├── BattleState.gd         # Representasi state matematis pertarungan
+│   │   └── MinimaxSolver.gd       # Modul 2: Pohon pencarian AI Minimax / Alpha-Beta
+│   └── UI/
+│       ├── AwakeningBannerModal.gd     # Modal kebangkitan penjaga saat pemain Level 2
+│       ├── PreBattleBriefingModal.gd   # Modal intel taktis pra-battle (Unrevealed vs Revealed)
+│       └── PreBattleLoadingOverlay.gd  # Visualisasi proses Local Search live
+├── TAHAP_4_LOGIC_AND_PLANNING.md  # Spesifikasi teknis & matematis komprehensif Tahap 4
+├── project.godot                  # Konfigurasi proyek Godot 4
+└── README.md                      # Dokumentasi komprehensif proyek
 ```
 
 ---
 
-## Panduan Instalasi & Menjalankan
+## 🎮 8. Panduan Kontrol & Shortcut Keyboard
 
-### Prasyarat Sistem
-- **Node.js**: Versi 18.0.0 atau lebih baru ([Unduh Node.js](https://nodejs.org/))
-- **NPM**: Bawaan dari instalasi Node.js
-- **Modern Web Browser**: Google Chrome, Mozilla Firefox, Microsoft Edge, atau Brave.
+### Overworld (Eksplorasi):
+- `W / A / S / D` atau `Tombol Panah`: Bergerak di peta labirin.
+- `Roda Mouse (Scroll Up / Down)`: Zoom In (hingga 2.0x) / Zoom Out (hingga 0.5x) kamera secara halus.
+- `+` / `-` dan `0`: Zoom In, Zoom Out, dan Reset Zoom kamera via keyboard.
+- `M`: Membuka / Menutup **Tahap 4 MDP & Bayesian Value Iteration HUD**.
+- `F3`: Membuka / Menutup **Debug HUD & CSP Inspector**.
+- `P` / `ESC`: Mengaktifkan **Game Pause & Konsep AI Briefing**.
+- `TAB`: Beralih algoritma pathfinding (**A\*** $\leftrightarrow$ **UCS**).
+- `L` / `C`: Naik level instan (*Debug Level Up* - Memicu Guard Awakening pada Level 2).
+- `K`: Mengaktifkan / Menonaktifkan auto-level sesuai syarat gerbang.
+- `R`: Mengulang sesi overworld dari awal (*Restart Game*).
 
-### Langkah Menjalankan:
+### Modal Briefing Pra-Battle:
+- `Enter` / `X`: Melanjutkan ke persiapan pertarungan (*Pre-Battle Balancer*).
+- `ESC`: Mundur / Membatalkan pertempuran.
 
-1. **Masuk ke Direktori Proyek**:
-   ```bash
-   cd hell-pathfinder
-   ```
+### Overlay Local Search Balancer:
+- `Enter` / `X`: Mulai Duel (masuk arena turn-based combat).
+- `ESC`: Membatalkan pertempuran.
+- `Tab` / `Spasi`: Mengganti algoritma (*Simulated Annealing* $\leftrightarrow$ *Hill Climbing*).
 
-2. **Instal Dependensi**:
-   ```bash
-   npm install
-   ```
-
-3. **Jalankan Server Lokal (Vite Dev Server)**:
-   ```bash
-   npm run dev
-   ```
-
-4. **Akses Permainan**:
-   Buka peramban (browser) dan buka tautan lokal yang tertera pada terminal (default: **`http://localhost:5173/`**).
-
----
-
-## Kontrol Permainan
-
-| Tombol / Antarmuka | Fungsi & Aksi |
-|---|---|
-| **W** / **Up Arrow (↑)** | Bergerak 1 petak ke atas |
-| **S** / **Down Arrow (↓)** | Bergerak 1 petak ke bawah |
-| **A** / **Left Arrow (←)** | Bergerak 1 petak ke kiri |
-| **D** / **Right Arrow (→)** | Bergerak 1 petak ke kanan |
-| **P** / **Spacebar** | Menjeda (*Pause*) atau Melanjutkan (*Resume*) permainan |
-| **Tombol Menu (Burger)** | Membuka laci pengaturan (Permainan otomatis di-pause) |
-| **Radio Algorithm** | Mengganti algoritma AI pemburu antara **A\*** dan **UCS** secara langsung |
-| **Button "New Random Map"** | Mengacak ulang susunan labirin rintangan dan lokasi karakter |
-| **Button "Try Again"** | Muncul pada modal saat tertangkap untuk memulai ronde baru di map acak baru |
-
+### Arena Duel Turn-Based:
+- `1`: Normal Attack (Serangan biasa 24 DMG).
+- `2`: Heavy Attack (Serangan kuat 43 DMG, recoil -10 HP).
+- `3`: Defend (Kuda-kuda bertahan, reduksi damage 50%).
+- `4`: Potion (Meminum ramuan pemulihan +30 HP).
+- `D`: Toggle **NPC Minimax AI Monitor Sidebar** (Analisis pohon pencarian real-time).
+- `P`: Toggle **AI Benchmark Lab** (Uji komparasi fungsi evaluasi).
+- `R`: Mengulang duel dari awal (*Restart Battle*).
+- `ESC`: Menyerah / Mundur dari duel.
